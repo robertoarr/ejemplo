@@ -1,0 +1,4 @@
+*.idea/
+*ejemplo/settings.py
+*test_db
+
