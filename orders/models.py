@@ -25,6 +25,7 @@ class Order(models.Model):
 class OrderDetail(models.Model):
     order = models.ForeignKey('orders.Order', on_delete=models.CASCADE)
     product = models.ForeignKey('orders.Product', on_delete=models.CASCADE)
+    #   date = models.DateTimeField()
 
 
 class Product(models.Model):
