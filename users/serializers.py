@@ -66,7 +66,7 @@ class Paymentserializer(serializers.Serializer):
 
     def validate_customer_id(self, value):
         try:
-            User.objects.get(id=value)
+            Customer.objects.get(pk=value)
             return value
         except:
             raise serializers.ValidationError("El comprador no existe")
