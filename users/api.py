@@ -1,9 +1,10 @@
 from rest_framework import permissions
 from rest_framework import viewsets
-from users.models import Customer, Office
-from users.serializers import CustomerSerializer, Officeserializer
 from rest_framework.response import Response
 from django.http import HttpResponse
+
+from users.models import Customer, Office
+from users.serializers import CustomerSerializer, Officeserializer
 
 
 class CustomerViewSet(viewsets.ModelViewSet):
