@@ -4,13 +4,10 @@ from django.contrib.auth.models import User
 
 
 class CustomerSerializer(serializers.ModelSerializer):
-<<<<<<< HEAD
     # user_id = serializers.IntegerField()
     # dob = serializers.DateField()
     # phone_number = serializers.CharField(max_length=15)
     #postal_code = serializers.IntegerFiel(required=True)
-=======
->>>>>>> develop
     class Meta:
         model = Customer
         fields = ("user", "dob", "phone_number", "postal_code")
@@ -59,8 +56,6 @@ class Officeserializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return Office.objects.create(**validated_data)
-<<<<<<< HEAD
-=======
 
 
 class Paymentserializer(serializers.Serializer):
@@ -81,4 +76,3 @@ class Paymentserializer(serializers.Serializer):
         print(validated_data)
 
         return payment
->>>>>>> develop
