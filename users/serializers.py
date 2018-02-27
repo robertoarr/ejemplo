@@ -63,6 +63,7 @@ class Paymentserializer(serializers.Serializer):
     customer_id = serializers.IntegerField(write_only=True, required=True)
     payment_date = serializers.DateTimeField(read_only=True)
     amount = serializers.IntegerField(required=True)
+    hello = serializers.CharField(required=False)
 
     def validate_customer_id(self, value):
         try:
