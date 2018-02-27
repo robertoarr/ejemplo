@@ -5,12 +5,8 @@ from django.contrib.auth.models import User
 
 
 class Customer(models.Model):
-<<<<<<< HEAD
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     # aqui se hacen las variaciones de bases de datos, no puede ser null
-=======
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, unique=True)
->>>>>>> develop
     dob = models.DateField(null=False)
     # si no ingresa photne se crea por default ''
     phone_number = models.CharField(max_length=15, null=False, default='', blank=True)

@@ -1,10 +1,7 @@
 from rest_framework import permissions
 from rest_framework import viewsets
-<<<<<<< HEAD
-=======
 from users.models import Customer, Office, Payment
 from users.serializers import CustomerSerializer, Officeserializer, Paymentserializer
->>>>>>> develop
 from rest_framework.response import Response
 
 from users.models import Customer, Office
