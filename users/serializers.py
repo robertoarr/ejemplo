@@ -4,13 +4,12 @@ from django.contrib.auth.models import User
 
 
 class CustomerSerializer(serializers.ModelSerializer):
-<<<<<<< HEAD
-    # user_id = serializers.IntegerField()
-    # dob = serializers.DateField()
-    # phone_number = serializers.CharField(max_length=15)
-    #postal_code = serializers.IntegerFiel(required=True)
-=======
->>>>>>> develop
+
+#     # user_id = serializers.IntegerField()
+#     # dob = serializers.DateField()
+#     # phone_number = serializers.CharField(max_length=15)
+#     #postal_code = serializers.IntegerFiel(required=True)
+
     class Meta:
         model = Customer
         fields = ("user", "dob", "phone_number", "postal_code")
@@ -59,26 +58,25 @@ class Officeserializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return Office.objects.create(**validated_data)
-<<<<<<< HEAD
-=======
+
 
 
 class Paymentserializer(serializers.Serializer):
-    customer = serializers.CharField(source='customer.user.username', read_only=True)
+    # customer = serializers.CharField(source='customer.user.username', read_only=True)
     customer_id = serializers.IntegerField(write_only=True, required=True)
     payment_date = serializers.DateTimeField(read_only=True)
     amount = serializers.IntegerField(required=True)
 
     def validate_customer_id(self, value):
         try:
-            User.objects.get(id=value)
+            Customer.objects.get(pk=value)
             return value
         except:
             raise serializers.ValidationError("El comprador no existe")
 
     def create(self, validated_data):
-        payment = Payment.objects.create(**validated_data)
+        customer = Customer.objects.get(pk=validated_data.get("customer_id"))
+        payment = Payment.objects.create(customer=customer, amount=validated_data.get(amount))
         print(validated_data)
 
         return payment
->>>>>>> develop
