@@ -3,7 +3,6 @@ from rest_framework import viewsets
 from users.models import Customer, Office
 from users.serializers import CustomerSerializer, Officeserializer
 from rest_framework.response import Response
-from django.http import HttpResponse
 
 
 class CustomerViewSet(viewsets.ModelViewSet):
@@ -20,12 +19,6 @@ class OfficeViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-
-        # new_office = Office(city=serializer.validated_data.get('city'),
-        #                     state=serializer.validated_data.get('state'),
-        #                     address=serializer.validated_data.get('address'),
-        #                     postal_code=serializer.validated_data.get('postal_code'))
-        # new_office.save()
-
+        print("Hola")
         serializer.save()
         return Response(serializer.data)
