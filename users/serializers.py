@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from users.models import Customer, Office
+from users.models import Customer, Office, Payment
 from django.contrib.auth.models import User
 
 
-class CustomerSerializer(serializers.Serializer):
+class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
 
@@ -24,3 +24,22 @@ class Officeserializer(serializers.Serializer):
     def create(self, validated_data):
         return Office.objects.create(**validated_data)
 
+
+class Paymentserializer(serializers.Serializer):
+    customer = serializers.CharField(source='customer.user.username', read_only=True)
+    customer_id = serializers.IntegerField(write_only=True, required=True)
+    payment_date = serializers.DateTimeField(read_only=True)
+    amount = serializers.IntegerField(required=True)
+
+    def validate_customer_id(self, value):
+        try:
+            User.objects.get(id=value)
+            return value
+        except:
+            raise serializers.ValidationError("El comprador no existe")
+
+    def create(self, validated_data):
+        payment = Payment.objects.create(**validated_data)
+        print(validated_data)
+
+        return payment

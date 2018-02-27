@@ -29,5 +29,5 @@ class Office(models.Model):
 
 class Payment(models.Model):
     customer = models.ForeignKey('users.Customer', related_name='payment', on_delete=models.CASCADE, null=True)
-    payment_date = models.DateTimeField(editable=False, auto_now=True)
+    payment_date = models.DateTimeField(editable=False, auto_now_add=True)
     amount = models.IntegerField(null=False)

@@ -7,6 +7,7 @@ router = routers.SimpleRouter()
 router.trailing_slash = '/?'
 router.register(r'v1/customer', api_user.CustomerViewSet, base_name='user')
 router.register(r'v1/office', api_user.OfficeViewSet, base_name='match')
+router.register(r'v1/payment', api_user.PaymentViewSet, base_name='pay')
 
 urlpatterns = [
     url(r'^', include(router.urls))
