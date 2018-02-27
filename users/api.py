@@ -18,8 +18,16 @@ class OfficeViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.AllowAny, )
 
     def create(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
+
+        office = Office(city=request.data.get('city'),
+                        state=request.data.get('state'),
+                        address=request.data.get('address'),
+                        postal_code=request.data.get('postal_code'))
+        office.save()
+        return Response({"city": office.city,
+                         "state": office.state})
+        # serializer = self.serializer_class(data=request.data)
+        # serializer.is_valid(raise_exception=True)
 
         # new_office = Office(city=serializer.validated_data.get('city'),
         #                     state=serializer.validated_data.get('state'),
@@ -27,5 +35,5 @@ class OfficeViewSet(viewsets.ModelViewSet):
         #                     postal_code=serializer.validated_data.get('postal_code'))
         # new_office.save()
 
-        serializer.save()
-        return Response(serializer.data)
+        # serializer.save()
+        # return Response(serializer.data)

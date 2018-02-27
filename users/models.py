@@ -1,9 +1,11 @@
+import datetime
+
 from django.db import models
 from django.contrib.auth.models import User
 
 
 class Customer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, unique=True)
     dob = models.DateField(null=False)
     phone_number = models.CharField(max_length=15, null=False, default='', blank=True)
     postal_code = models.IntegerField(null=False)

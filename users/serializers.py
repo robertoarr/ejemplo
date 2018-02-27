@@ -14,12 +14,33 @@ class CustomerSerializer(serializers.Serializer):
         return user
 
 
-class Officeserializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
-    city = serializers.CharField(max_length=50, required=True)
-    state = serializers.CharField(max_length=50, required=True)
-    address = serializers.CharField(max_length=50, required=True)
-    postal_code = serializers.IntegerField(required=True)
+class Officeserializer(serializers.ModelSerializer):
+    # id = serializers.IntegerField(read_only=True)
+    # city = serializers.CharField(max_length=50, required=True)
+    # state = serializers.CharField(max_length=50, required=True)
+    # address = serializers.CharField(max_length=50, required=True)
+    # postal_code = serializers.IntegerField(required=True)
+
+    class Meta:
+        model = Office
+        fields = ('id', 'city', 'state', 'address', 'postal_code')
+        extra_kwargs = {
+            'city': {
+                'required': True
+            },
+            'state': {
+                'required': True
+            },
+            'address': {
+                'required': True
+            },
+            'postal_code': {
+                'required': True
+            },
+            'id': {
+                'read_only': True
+            }
+        }
 
     def create(self, validated_data):
         return Office.objects.create(**validated_data)
