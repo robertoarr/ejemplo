@@ -11,6 +11,7 @@ router.register(r'v1/office', api_user.OfficeViewSet, base_name='office')
 router.register(r'v1/product', api_orders.ProductViewSet, base_name='product')
 router.register(r'v1/order', api_orders.OrderViewSet, base_name='order')
 router.register(r'v1/payment', api_user.PaymentViewSet, base_name='pay')
+router.register(r'v1/detailpayment', api_user.DetailPaymentViewSet, base_name='detailpay')
 
 urlpatterns = [
     url(r'', include(router.urls))

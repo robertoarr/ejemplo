@@ -37,7 +37,7 @@ class Product(models.Model):
     description = models.CharField(max_length=400, null=False, blank=True, default='')
     price = models.IntegerField(null=False)
     stock = models.IntegerField(null=False)
-
+    
 
 class ProductLine(models.Model):
     description = models.CharField(max_length=400, null=False, blank=True, default='')
