@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from users.models import Customer, Office, Payment
+from users.models import Customer, Office, Payment, Employee
 from django.contrib.auth.models import User
 
 
@@ -85,3 +85,22 @@ class Paymentserializer(serializers.Serializer):
         print(validated_data)
 
         return payment
+
+
+class EmployeeSerializer(serializers.ModelSerializer):
+    username = CharField(required=True)
+    email = EmailField(required=True)
+    password = CharField(required=True)
+
+    class Meta:
+        model = Employee
+        fields = ('Employee_id', 'office', 'reports_to', 'extension', 'job_title')
+         extra_kwargs = {
+            'Employee_id': {
+                'read_only': True
+             }
+        }
+
+        def create(self, validated_data):
+            user_employee = User.objects.create(username=username, email=email, password=password)
+            employee = Employee.objects.create(**validated_data)
