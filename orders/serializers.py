@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from orders.models import Product, Order
+from orders.models import Product, Order, OrderDetail
+
 
 class OrderSerializer(serializers.ModelSerializer):
     # class Meta:
@@ -32,7 +33,9 @@ class ProductSerializer(serializers.Serializer):
     stock = serializers.IntegerField()
 
     def create(self, validated_data):
-        return Product.objects.create(**validated_data)
+        object = Product.objects.create(**validated_data)
+        print(object.name)
+        return FinalProductSerializer(object).data
 
     # def validate_name(self, value):
     #     try:
@@ -40,3 +43,20 @@ class ProductSerializer(serializers.Serializer):
     #         return value
     #     except:
     #         raise serializers.ValidationError("El producto proporcionado no existe")
+
+class FinalProductSerializer(serializers.ModelSerializer):
+
+    stats = serializers.SerializerMethodField()
+    available = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Product
+        fields = ('product_line', 'name', 'stock', 'price', 'stats', 'available')
+
+    def get_stats(self, object):
+        boughts = len (OrderDetail.objects.filter(product=object.pk))
+        earnings = 0.15 * (boughts * object.price)
+        return {"boughts": boughts, "earnings": earnings}
+
+    def get_available(self, object):
+        return object.stock > 0
