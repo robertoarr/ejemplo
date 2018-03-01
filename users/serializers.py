@@ -2,6 +2,7 @@ from rest_framework import serializers
 from users.models import Customer, Office, Payment, Employee
 from django.contrib.auth.models import User
 
+from datetime import datetime, timezone
 
 class CustomerSerializer(serializers.ModelSerializer):
 
@@ -104,3 +105,24 @@ class EmployeeSerializer(serializers.ModelSerializer):
         def create(self, validated_data):
             user_employee = User.objects.create(username=username, email=email, password=password)
             employee = Employee.objects.create(**validated_data)
+
+
+class DetailPaymentSerializer(serializers.ModelSerializer):
+
+    expenses = serializers.SerializerMethodField()
+    days_from_payment = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Payment
+        fields = ("payment_date", "amount", "expenses", "days_from_payment")
+
+    def get_expenses(self, object):
+         IVA = 0.15 * object.amount
+         administrative_cost = 0.22* object.amount
+         shipping_cost = 0.2 * object.amount
+         return {"IVA": IVA, "administrativos": administrative_cost, "embarque": shipping_cost}
+
+    def get_days_from_payment(self, object):
+        print (datetime.now(timezone.utc))
+        print (object.payment_date)
+        return (datetime.now(timezone.utc) - object.payment_date).days
