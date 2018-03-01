@@ -88,14 +88,14 @@ class Paymentserializer(serializers.Serializer):
 
 
 class EmployeeSerializer(serializers.ModelSerializer):
-    username = CharField(required=True)
-    email = EmailField(required=True)
-    password = CharField(required=True)
+    username = serializers.CharField(required=True)
+    email = serializers.EmailField(required=True)
+    password = serializers.CharField(required=True)
 
     class Meta:
         model = Employee
         fields = ('Employee_id', 'office', 'reports_to', 'extension', 'job_title')
-         extra_kwargs = {
+        extra_kwargs = {
             'Employee_id': {
                 'read_only': True
              }
