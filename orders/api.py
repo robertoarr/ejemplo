@@ -16,6 +16,7 @@ class ProductViewSet(viewsets.ModelViewSet):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         return Response(serializer.save())
+    
 
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
