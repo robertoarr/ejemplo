@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from users.models import Customer, Office, Payment
+from users.models import Customer, Office, Payment, Employee
 from django.contrib.auth.models import User
 
 from datetime import datetime, timezone
@@ -79,13 +79,37 @@ class Paymentserializer(serializers.Serializer):
             return value
         except:
             raise serializers.ValidationError("El comprador no existe")
-
+    """ 
+    Habia una vez un pequeño lagarto que quería poder volar por los cielos como 
+    las maravillosas águilas. 
+    El lagarto jamás pudo porque no siempre tenemos lo que queremos. Fin.
+    Sale bye.
+    """
     def create(self, validated_data):
         customer = Customer.objects.get(pk=validated_data.get("customer_id"))
         payment = Payment.objects.create(customer=customer, amount=validated_data.get(amount))
         print(validated_data)
 
         return payment
+
+
+class EmployeeSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(required=True)
+    email = serializers.CharField(required=True)
+    password = serializers.CharField(required=True)
+
+    class Meta:
+        model = Employee
+        fields = ('Employee', 'office', 'reports_to', 'extension', 'job_title')
+        extra_kwargs = {
+            'Employee_id': {
+                'read_only': True
+             }
+        }
+
+        def create(self, validated_data):
+            user_employee = User.objects.create(username=username, email=email, password=password)
+            employee = Employee.objects.create(**validated_data)
 
 
 class DetailPaymentSerializer(serializers.ModelSerializer):

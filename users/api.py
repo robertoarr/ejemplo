@@ -1,11 +1,8 @@
 from rest_framework import permissions
 from rest_framework import viewsets
-from users.models import Customer, Office, Payment
-from users.serializers import CustomerSerializer, Officeserializer, Paymentserializer, DetailPaymentSerializer
+from users.models import Customer, Office, Payment, Employee
+from users.serializers import CustomerSerializer, Officeserializer, Paymentserializer, EmployeeSerializer
 from rest_framework.response import Response
-
-from users.models import Customer, Office
-from users.serializers import CustomerSerializer, Officeserializer
 
 
 class CustomerViewSet(viewsets.ModelViewSet):
@@ -48,6 +45,26 @@ class PaymentViewSet(viewsets.ModelViewSet):
 
         return Response(serializer.data)
 
+
+class EmployeeViewSet(viewsets.ModelViewSet):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
+    permission_classes = (permissions.AllowAny, )
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.save()
+
+        return Response(serializer.data)
+
+    def list(self, request):
+        all_employees = Employee.objects.all()
+        serializer = EmployeeSerializer(all_employees, many=True)
+
+        return Response(serializer.data)
+
+
+
 class DetailPaymentViewSet(viewsets.ModelViewSet):
     queryset = Payment.objects.all()
     serializer_class = Paymentserializer
@@ -60,7 +77,7 @@ class DetailPaymentViewSet(viewsets.ModelViewSet):
         serializer.save()
 
         return Response(serializer.data)
-    
+
     def list(self, request):
         all_payments = Payment.objects.all()
         serializer = DetailPaymentSerializer(all_payments, many=True)
