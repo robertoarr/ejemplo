@@ -20,7 +20,10 @@ class Player(models.Model):
     account_holder = models.CharField(max_length=40, blank=True, default='')
     account_email = models.EmailField(max_length=254, blank=True, default='')
 
-    coins = models.BigIntegerField()
+    coins = models.BigIntegerField(default=0, validators=[
+                MaxValueValidator(5),
+                MinValueValidator(0),
+                ])
     lives = models.IntegerField(default=0, validators=[
                 MaxValueValidator(5),
                 MinValueValidator(0),
