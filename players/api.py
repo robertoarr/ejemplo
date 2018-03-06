@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 # Test test
-# Another test 
+# Another test
+# fix
 
 class PlayerViewSet(viewsets.GenericViewSet):
     permission_classes = []
