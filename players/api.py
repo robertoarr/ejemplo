@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+# Test test
 
 
 class PlayerViewSet(viewsets.GenericViewSet):
@@ -20,4 +21,3 @@ class PlayerViewSet(viewsets.GenericViewSet):
 
     def delete(self, request, pk):
         pass
-
