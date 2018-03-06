@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from orders.models import Product, Order
 from orders.serializers import ProductSerializer, OrderSerializer
 
+#que es esto?
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
