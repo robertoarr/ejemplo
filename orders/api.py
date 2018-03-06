@@ -5,15 +5,7 @@ from django.http import HttpResponse
 
 from orders.models import Product, Order
 from orders.serializers import ProductSerializer, OrderSerializer
-
-#que es esto?
-# asugdsiugdsaiugsd+asd++
-# sdasdasdasdsa
-# asdijdsjhdsaidsa
-# sadidssdahidsodsa
-# asuhidsauhadsods
-# saudgdsids
-# wip
+#SWAAAAAAAAAGGGGG
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
