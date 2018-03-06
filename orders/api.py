@@ -6,6 +6,12 @@ from django.http import HttpResponse
 from orders.models import Product, Order
 from orders.serializers import ProductSerializer, OrderSerializer
 
+# asugdsiugdsaiugsd+asd++
+# sdasdasdasdsa
+# asdijdsjhdsaidsa
+# sadidssdahidsodsa
+# asuhidsauhadsods
+# saudgdsids
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
