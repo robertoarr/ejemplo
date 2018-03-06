@@ -13,6 +13,7 @@ from orders.serializers import ProductSerializer, OrderSerializer
 # sadidssdahidsodsa
 # asuhidsauhadsods
 # saudgdsids
+# wip
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
