@@ -4,12 +4,13 @@ from django.contrib.auth.models import User
 
 from datetime import datetime, timezone
 
+
 class CustomerSerializer(serializers.ModelSerializer):
 
-#     # user_id = serializers.IntegerField()
-#     # dob = serializers.DateField()
-#     # phone_number = serializers.CharField(max_length=15)
-#     #postal_code = serializers.IntegerFiel(required=True)
+    #     # user_id = serializers.IntegerField()
+    #     # dob = serializers.DateField()
+    #     # phone_number = serializers.CharField(max_length=15)
+    #     #postal_code = serializers.IntegerFiel(required=True)
 
 
     # user_id = serializers.IntegerField()
@@ -65,6 +66,7 @@ class Officeserializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return Office.objects.create(**validated_data)
+
 
 class Paymentserializer(serializers.Serializer):
     # customer = serializers.CharField(source='customer.user.username', read_only=True)

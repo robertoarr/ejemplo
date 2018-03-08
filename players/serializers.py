@@ -1,11 +1,52 @@
 from rest_framework import serializers
-from mobile_api.player_dao import PlayerDao
+# from mobile_api.player_dao import PlayerDao
+from players.models import Player
+from django.contrib.auth.models import User
+
+
+class PlayerCreateSerializer(serializers.Serializer):
+    def create(self, validated_data):
+        userauth = User.objects.create_user(username=self.data.get('player_id'),
+                                            password=self.data.get(
+                                                'password'), email=self.data.get('email'),
+                                            is_active=1, is_superuser=0)
+        player = Player(id=userauth, nickname=self.data.get("nickname"),
+                        phone_number=self.data.get("phone_number"),
+                        email=self.data.get("email"))
+        player.save()
+
+        return Player.objects.create(**validated_data)
 
 
 class UserDataSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ""
+        model = Player
         fields = "__all__"
+
+
+class RegisterSerializer(serializers.ModelSerializer):
+    """Creates an user from the Django model"""
+
+    phone_number = serializers.CharField(max_length=10, required=True)
+
+    class Meta:
+        model = User
+        fields = ('email', 'username', 'password', 'phone_number')
+        extra_kwargs = {
+            'email': {
+                'required': True
+            },
+        }
+
+    def create(self, validated_data):
+        userauth = User.objects.create_user(username=validated_data.get('username'),
+                                            password=validated_data.get('password'),
+                                            email=validated_data.get('email'),
+                                            is_active=1, is_superuser=0)
+        player = Player(user=userauth, phone_number=self.data.get("phone_number"))
+        player.save()
+
+        return player
 
 
 class UserGetSerializer(serializers.Serializer):
