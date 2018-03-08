@@ -1,8 +1,9 @@
 from rest_framework import permissions
 from rest_framework import viewsets
-from users.models import Customer, Office, Payment, Employee
-from users.serializers import CustomerSerializer, Officeserializer, Paymentserializer, EmployeeSerializer
+from users.models import Customer, Office
+from users.serializers import CustomerSerializer, Officeserializer
 from rest_framework.response import Response
+from django.http import HttpResponse
 
 
 class CustomerViewSet(viewsets.ModelViewSet):
@@ -19,74 +20,12 @@ class OfficeViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        print("Hola")
+
+        # new_office = Office(city=serializer.validated_data.get('city'),
+        #                     state=serializer.validated_data.get('state'),
+        #                     address=serializer.validated_data.get('address'),
+        #                     postal_code=serializer.validated_data.get('postal_code'))
+        # new_office.save()
+
         serializer.save()
         return Response(serializer.data)
-
-
-class PaymentViewSet(viewsets.ModelViewSet):
-    queryset = Payment.objects.all()
-    serializer_class = Paymentserializer
-    permission_classes = (permissions.AllowAny, )
-    # serializer.save()
-    # return Response(serializer.data)
-
-    def create(self, request, *args, **kwargs):
-        # serializer = Paymentserializer(data=request.data)
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-
-        return Response(serializer.data)
-
-    def list(self, request):
-        all_payments = Payment.objects.all()
-        serializer = Paymentserializer(all_payments, many=True)
-
-        return Response(serializer.data)
-
-
-class EmployeeViewSet(viewsets.ModelViewSet):
-    queryset = Employee.objects.all()
-    serializer_class = EmployeeSerializer
-    permission_classes = (permissions.AllowAny, )
-
-    def create(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        serializer.save()
-
-        return Response(serializer.data)
-
-    def list(self, request):
-        all_employees = Employee.objects.all()
-        serializer = EmployeeSerializer(all_employees, many=True)
-
-        return Response(serializer.data)
-
-
-
-class DetailPaymentViewSet(viewsets.ModelViewSet):
-    queryset = Payment.objects.all()
-    serializer_class = Paymentserializer
-    permission_classes = (permissions.AllowAny, )
-
-    def create(self, request, *args, **kwargs):
-        serializer = DetailPaymentSerializer(data=request.data)
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-
-        return Response(serializer.data)
-
-    def list(self, request):
-        all_payments = Payment.objects.all()
-        serializer = DetailPaymentSerializer(all_payments, many=True)
-
-        return Response(serializer.data)
-
-    # def create(self, request, *args, **kwargs):
-    #     serializer = self.serializer_class(data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-    #     serializer.save()
-    #
-    #     return Response(serializer.data)

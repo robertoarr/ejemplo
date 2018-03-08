@@ -25,7 +25,6 @@ class Order(models.Model):
 class OrderDetail(models.Model):
     order = models.ForeignKey('orders.Order', on_delete=models.CASCADE)
     product = models.ForeignKey('orders.Product', on_delete=models.CASCADE)
-    #   date = models.DateTimeField()
 
 
 class Product(models.Model):
@@ -42,5 +41,3 @@ class Product(models.Model):
 class ProductLine(models.Model):
     description = models.CharField(max_length=400, null=False, blank=True, default='')
     web_page = models.URLField(blank=True, default='')
-
-# CAMBIO PARA PROBAR GIT

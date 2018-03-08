@@ -1,5 +1,4 @@
 *.idea/
 *ejemplo/settings.py
 *test_db
-*/__pycache__/
-*/migrations/
+*__pycache__
