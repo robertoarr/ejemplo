@@ -7,17 +7,6 @@ from datetime import datetime, timezone
 
 class CustomerSerializer(serializers.ModelSerializer):
 
-    #     # user_id = serializers.IntegerField()
-    #     # dob = serializers.DateField()
-    #     # phone_number = serializers.CharField(max_length=15)
-    #     #postal_code = serializers.IntegerFiel(required=True)
-
-
-    # user_id = serializers.IntegerField()
-    # dob = serializers.DateField()
-    # phone_number = serializers.CharField(max_length=15)
-    #postal_code = serializers.IntegerFiel(required=True)
-
     class Meta:
         model = Customer
         fields = ("user", "dob", "phone_number", "postal_code")

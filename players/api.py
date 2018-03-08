@@ -2,17 +2,13 @@ from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework.response import Response
 from players.models import Player
-from players.serializers import UserDataSerializer, RegisterSerializer
-# Test test
-# Another test
-# fix
+from players.serializers import RegisterSerializer
 
 
 class PlayerViewSet(viewsets.GenericViewSet):
     queryset = Player.objects.all()
-    serializer_class = UserDataSerializer
+    serializer_class = RegisterSerializer
     permission_classes = (permissions.AllowAny, )
-    # authentication_classes = []
 
     def create(self, request, *args, **kwargs):
         """Creates an user from the Django model"""
@@ -23,10 +19,7 @@ class PlayerViewSet(viewsets.GenericViewSet):
         return Response({"Message": "Usuario creado"})
 
     def list(self, request):
-        all_players = Player.objects.all()
-        serializer = UserDataSerializer(all_players, many=True)
-
-        return Response(serializer.data)
+        pass
 
     def partial_update(self, request, pk):
         pass
