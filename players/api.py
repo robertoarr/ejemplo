@@ -18,6 +18,8 @@ class PlayerViewSet(viewsets.GenericViewSet):
         pass
 
     def partial_update(self, request, pk):
+        # Aquí wa a trabajar
+        
         pass
 
     def delete(self, request, pk):
