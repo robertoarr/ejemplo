@@ -32,3 +32,39 @@ class Player(models.Model):
                 MaxValueValidator(5),
                 MinValueValidator(0),
                 ])
+    # Referencia al modelo, entre comilla simples 'players.player'
+    follow = models.ManyToManyField('players.player', related_name='followers')
+
+    @classmethod
+    def following(self, me_id, follow_id):
+        if not me_id == follow_id:
+            me = self.objects.get(pk=me_id)
+            player = self.objects.get(pk=follow_id)
+            me.follow.add(player)
+            me.save()
+        else:
+            pass
+
+
+
+## WORK IN PROGRESS
+# PROPUESTA
+
+# class UserFollower(models.Model):
+#     # Para que el mismo usuario no pueda ser seguido mas de una vez
+#     user = models.ForeignKey(User, on_delete=models.CASCADE, unique=True)
+#     count = models.IntegerField(default=1)
+#     # Los usuarios que siguien al User
+#     followers = models.ManyToManyField(Player, related_name='followers')
+#
+#     def ___str___(self):
+#         return '%s, %s' %self.user, self.count
+
+
+# class Follow(models.Model):
+#       following = models.ForeignKey(User, related_name="who_follows")
+#       follower = models.ForeignKey(User, related_name="who_is_followed")
+#       follow_time = models.DateTimeField(auto_now=True)
+#
+#       def __unicode__(self):
+#           return str(self.follow_time)
