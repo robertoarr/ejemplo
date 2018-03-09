@@ -32,3 +32,15 @@ class Player(models.Model):
                 MaxValueValidator(5),
                 MinValueValidator(0),
                 ])
+    # Referencia al modelo, entre comilla simples 'players.player'
+    follow = models.ManyToManyField('players.player', related_name='followers')
+
+    @classmethod
+    def following(self, me_id, follow_id):
+        if not me_id == follow_id:
+            me = self.objects.get(pk=me_id)
+            player = self.objects.get(pk=follow_id)
+            me.follow.add(player)
+            me.save()
+        else:
+            pass
