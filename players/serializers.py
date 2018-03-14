@@ -1,7 +1,12 @@
 from rest_framework import serializers
+<<<<<<< HEAD
+from players.models import Player
+
+=======
 # from mobile_api.player_dao import PlayerDao
 from players.models import Player
 from django.contrib.auth.models import User
+>>>>>>> develop
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -63,11 +68,28 @@ class UpdateUserSerializer(serializers.ModelSerializer):
 class UserGetSerializer(serializers.Serializer):
 
     def list(self):
-        result = PlayerDao.list(self.data)
-        return result
+        pass
 
     def retrieve(self):
         pass
 
     def delete(self):
         pass
+
+
+class PlayerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Player
+        fields = '__all__'
+
+    # def validate_player_id(self, value):
+    #     try:
+    #         Player.objects.request(pk=value)
+    #         return value
+    #     except:
+    #         serializer.ValidationError("El jugador no existe")
+
+    # def get_serializer_class(self):
+    #     if self.request.user.is_staff:
+    #         return FullAccountSerializer
+    #     return BasicAccountSerializer

@@ -2,7 +2,7 @@ from django import urls
 from rest_framework import routers
 from users import api as api_user
 from orders import api as api_orders
-from players import api as api_players
+from players import api as api_player
 from django.conf.urls import url, include
 
 router = routers.SimpleRouter()
@@ -15,7 +15,7 @@ router.register(r'v1/payment', api_user.PaymentViewSet, base_name='pay')
 router.register(
     r'v1/detail_payment', api_user.DetailPaymentViewSet, base_name='detailpay')
 router.register(r'v1/employee', api_user.EmployeeViewSet, base_name='employee')
-router.register(r'v1/player', api_players.PlayerViewSet, base_name='player')
+router.register(r'v1/player', api_player.PlayerViewSet, base_name='player')
 
 urlpatterns = [
     url(r'', include(router.urls))
